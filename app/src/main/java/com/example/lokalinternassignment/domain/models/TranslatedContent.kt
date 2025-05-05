@@ -1,0 +1,3 @@
+package com.example.lokalinternassignment.domain.models
+
+class TranslatedContent
