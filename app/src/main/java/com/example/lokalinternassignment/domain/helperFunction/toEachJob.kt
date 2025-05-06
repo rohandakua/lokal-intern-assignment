@@ -12,6 +12,7 @@ fun Job.toEachJob(): EachJob {
         image_url = this.creatives.firstOrNull()?.image_url ?: "",
         company_name = this.company_name,
         experience = this.primary_details.Experience,
-        job_hours = this.job_hours
+        job_hours = this.job_hours,
+        is_bookmarked = false
     )
 }

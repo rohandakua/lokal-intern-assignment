@@ -41,7 +41,6 @@ class BookmarksPageViewModel(
     }
 
     var lastViewedIndex = -1
-    fun getLastViewedIndex(): Int = lastViewedIndex
 
 
     fun deleteBookmarkedJob(jid : Int) {

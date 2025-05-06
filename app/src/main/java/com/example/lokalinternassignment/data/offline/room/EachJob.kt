@@ -18,4 +18,6 @@ data class EachJob (
     @ColumnInfo (name = "experience") val experience : String? = null,    // from job.primarydetails in the api
     @ColumnInfo (name = "job_hours") val job_hours : String? = null,
 
+    @ColumnInfo (name = "is_bookmarked") var is_bookmarked : Boolean = false
+
 )

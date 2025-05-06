@@ -77,12 +77,14 @@ class JobPageViewModel(
 
     fun bookmarkJob(job: EachJob) {
         viewModelScope.launch {
+            job.is_bookmarked = true
             when (val result = bookmarkJob.execute(job)) {
                 is RoomResult.Success -> {
                     _bookmarkLoadingState.value = RoomResult.Success(Unit)
                 }
                 else -> {
                     Log.e(TAG, "bookmarkJob: error occured")
+                    job.is_bookmarked = false
                     _bookmarkLoadingState.value = RoomResult.Error("error occured")
 
                 }
@@ -91,17 +93,21 @@ class JobPageViewModel(
     }
 
     var lastViewedIndex = -1
-    fun getLastViewedIndex(): Int = lastViewedIndex
 
 
     fun deleteBookmarkedJob(jid : Int) {
         viewModelScope.launch {
             val currentJobs = _jobs.value ?: emptyList()
             val jobToDelete = currentJobs.indexOfFirst { it.jid == jid }
+            if(jobToDelete <0 ) return@launch
             when (val result = deleteBookmarkedJobById.execute(jid)) {
                 is RoomResult.Success -> {
+                    val updatedJob = currentJobs[jobToDelete].copy(is_bookmarked = false)
+
                     // update the list
-                    val updatedJobs = currentJobs.filter { it.jid != jid }
+                    val updatedJobs = currentJobs.toMutableList().apply {
+                        set(jobToDelete, updatedJob)
+                    }
                     _jobs.value = updatedJobs
                     lastViewedIndex = if (jobToDelete>0) jobToDelete -1 else 0
                 } else -> {
