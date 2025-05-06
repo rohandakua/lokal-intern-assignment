@@ -1,6 +1,8 @@
-package com.example.lokalinternassignment.domain.models
+package com.example.lokalinternassignment.domain.models.apiModels
 
-data class Result(
+import com.example.lokalinternassignment.data.offline.room.EachJob
+
+data class Job(
     val advertiser: Int,
     val amount: String,
     val button_text: String,
@@ -57,4 +59,8 @@ data class Result(
     val videos: List<Any>,
     val views: Int,
     val whatsapp_no: String
+
+
+
+
 )

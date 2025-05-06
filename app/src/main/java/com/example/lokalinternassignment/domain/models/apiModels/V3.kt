@@ -1,4 +1,4 @@
-package com.example.lokalinternassignment.domain.models
+package com.example.lokalinternassignment.domain.models.apiModels
 
 data class V3(
     val field_key: String,

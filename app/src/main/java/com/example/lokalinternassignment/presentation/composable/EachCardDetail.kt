@@ -2,6 +2,7 @@ package com.example.lokalinternassignment.presentation.composable
 
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.gestures.scrollable
@@ -47,7 +48,10 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.input.pointer.motionEventSpy
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -57,36 +61,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.DialogProperties
+import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.example.lokalinternassignment.R
-import com.example.lokalinternassignment.data.offline.room.EachJob
 import com.example.lokalinternassignment.presentation.ui.theme.mainBackgroundColor
 import com.example.lokalinternassignment.presentation.ui.theme.mainCardBackground
 
-//@Composable
-//@Preview(showBackground = true)
-//fun EachTitleCardList() {
-//    val scrollState = rememberScrollState()
-//    Column(modifier = Modifier.verticalScroll(scrollState)) {
-//        EachCardTile()
-//        EachCardTile()
-//        EachCardTile()
-//        EachCardTile()
-//        EachCardTile()
-//        EachCardTile()
-//        EachCardTile()
-//        EachCardTile()
-//        EachCardTile()
-//        EachCardTile()
-//    }
-//}
-
 
 @Composable
-fun EachCardTile(
-    modifier: Modifier = Modifier
-        .width(500.dp)
-        .height(200.dp) ,
-    job: EachJob
+@Preview(showBackground = true)
+fun EachCardDetail(
+    modifier: Modifier = Modifier.fillMaxSize()
 
 ) {
     val title by remember { mutableStateOf("Title") }
@@ -94,6 +80,10 @@ fun EachCardTile(
     val salary by remember { mutableStateOf("1903932043") }
     val phoneNo by remember { mutableStateOf("98989898989") }
     var isBookmarked by remember { mutableStateOf(false) }
+    val companyName by remember { mutableStateOf("Company name dffa fgdfg fgs sdfg sgsdfgsdgg fgsg ") }
+    val jobHours by remember { mutableStateOf("Job Hours 1pm-9pm") }
+    val imageUrl by remember { mutableStateOf("https://media.getlokalapp.com/classified_images/631160/631160_female_teli.jpeg") }
+    val experience by remember { mutableStateOf("3 years") }
 
     Box(
         modifier = modifier
@@ -124,6 +114,24 @@ fun EachCardTile(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.SpaceAround
                 ) {
+                    // Image
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current).data(imageUrl)
+                            .crossfade(true)
+                            .build(),
+                        placeholder = painterResource(R.drawable.mobiledata_off_24px),
+                        contentDescription = "job image",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .padding(20.dp)
+                            .border(
+                                width = 5.dp,
+                                brush = gradientBrush,
+                                shape = RectangleShape
+                            )
+                    )
+
+
                     // title
                     NormalText(
                         text = title,
@@ -139,12 +147,34 @@ fun EachCardTile(
 
                         Column(
                             modifier = Modifier
-                                .fillMaxWidth(.5f)
+                                .fillMaxWidth(.7f)
                                 .fillMaxHeight()
                                 .padding(10.dp),
                             horizontalAlignment = Alignment.Start,
-                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                            verticalArrangement = Arrangement.spacedBy(15.dp)
                         ) {
+
+                            // companyName
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Start,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.domain_24px),
+                                    contentDescription = "check",
+                                    tint = Color.Black,
+                                    modifier = Modifier
+                                        .drawBehind {
+                                            drawCircle(
+                                                brush = gradientBrush, alpha = 1f
+                                            )
+                                        }
+                                        .size(25.dp))
+                                Spacer(modifier = Modifier.width(10.dp))
+                                NormalText(text = companyName, textSize = 18)
+                            }
+
                             // location
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -164,6 +194,47 @@ fun EachCardTile(
                                         .size(25.dp))
                                 Spacer(modifier = Modifier.width(10.dp))
                                 NormalText(text = location, textSize = 18)
+                            }
+                            // experience
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Start,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.work_history_24px),
+                                    contentDescription = "check",
+                                    tint = Color.Black,
+                                    modifier = Modifier
+                                        .drawBehind {
+                                            drawCircle(
+                                                brush = gradientBrush, alpha = 1f
+                                            )
+                                        }
+                                        .size(25.dp))
+                                Spacer(modifier = Modifier.width(10.dp))
+                                NormalText(text = experience, textSize = 18)
+                            }
+
+                            // job-hours
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Start,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.schedule_24px),
+                                    contentDescription = "check",
+                                    tint = Color.Black,
+                                    modifier = Modifier
+                                        .drawBehind {
+                                            drawCircle(
+                                                brush = gradientBrush, alpha = 1f
+                                            )
+                                        }
+                                        .size(25.dp))
+                                Spacer(modifier = Modifier.width(10.dp))
+                                NormalText(text = jobHours, textSize = 18)
                             }
 
                             // salary
@@ -209,21 +280,23 @@ fun EachCardTile(
                             }
 
                         }
-                        Box(modifier  = Modifier.fillMaxSize()){
+                        Box(modifier = Modifier.fillMaxSize()) {
                             Column(
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier.fillMaxWidth().fillMaxHeight(.6f),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.Center
                             ) {
                                 //button
                                 Icon(
-                                    painter = painterResource(id = if(isBookmarked) R.drawable.bookmark_remove_24px else R.drawable.bookmark_24px ),
+                                    painter = painterResource(id = if (isBookmarked) R.drawable.bookmark_remove_24px else R.drawable.bookmark_24px),
                                     contentDescription = "check",
                                     tint = Color.Black,
                                     modifier = Modifier
                                         .drawBehind {
                                             drawCircle(
-                                                brush = gradientBrush, alpha = 1f , radius = (size.minDimension+15)/2.0f
+                                                brush = gradientBrush,
+                                                alpha = 1f,
+                                                radius = (size.minDimension + 15) / 2.0f
                                             )
                                         }
                                         .size(40.dp)
@@ -234,14 +307,15 @@ fun EachCardTile(
 
                                 )
                                 Spacer(modifier = Modifier.width(14.dp))
-                                NormalText(text =  if(isBookmarked) "Remove" else "Bookmark", textSize = 18)
-
+                                NormalText(
+                                    text = if (isBookmarked) "Remove" else "Bookmark",
+                                    textSize = 18
+                                )
 
 
                             }
 
                         }
-
 
 
                     }

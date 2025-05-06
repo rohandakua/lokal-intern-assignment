@@ -1,4 +1,4 @@
-package com.example.lokalinternassignment.domain.models
+package com.example.lokalinternassignment.domain.models.apiModels
 
 data class JobTag(
     val bg_color: String,
