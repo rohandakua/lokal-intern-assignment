@@ -1,6 +1,6 @@
-package com.example.lokalinternassignment.domain.models
+package com.example.lokalinternassignment.domain.models.apiModels
 
-data class Result(
+data class Job(
     val advertiser: Int,
     val amount: String,
     val button_text: String,
