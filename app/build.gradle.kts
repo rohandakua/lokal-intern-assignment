@@ -77,8 +77,6 @@ dependencies {
     implementation(libs.androidx.room.ktx)
 
 
-    // data store
-    implementation(libs.androidx.datastore.preferences)
 
 
 

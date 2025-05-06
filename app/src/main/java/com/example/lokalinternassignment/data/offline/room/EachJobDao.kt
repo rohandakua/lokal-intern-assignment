@@ -16,6 +16,9 @@ interface EachJobDao {
     @Query("SELECT * FROM each_job WHERE jid = :jid")
     suspend fun getJobById(jid: Int): EachJob?
 
+    @Query("DELETE FROM each_job WHERE jid = :jid")
+    suspend fun deleteJobById(jid: Int)
+
 
 
 }

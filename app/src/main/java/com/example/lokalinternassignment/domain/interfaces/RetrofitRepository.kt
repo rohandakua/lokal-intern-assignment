@@ -1,11 +1,11 @@
 package com.example.lokalinternassignment.domain.interfaces
 
-import com.example.lokalinternassignment.domain.constant.endpoint
+
 import com.example.lokalinternassignment.domain.models.apiModels.Results
-import com.example.lokalinternassignment.domain.models.retrofitTransactionModels.RetrofitResult
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface RetrofitRepository {
-    @GET(endpoint)
-    suspend fun getData (): RetrofitResult<Results>
+    @GET("common/jobs")
+    suspend fun getData(@Query("page") page: Int): Results
 }

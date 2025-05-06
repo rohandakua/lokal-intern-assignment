@@ -7,4 +7,5 @@ interface RoomRepository {
 
     suspend fun getAllJobs(): RoomResult<List<EachJob>>
     suspend fun saveJob (job : EachJob) : RoomResult<Unit>
+    suspend fun deleteJob(jobId : Int) : RoomResult<Unit>
 }
